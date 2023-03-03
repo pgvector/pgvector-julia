@@ -62,5 +62,6 @@ To get started with development:
 git clone https://github.com/pgvector/pgvector-julia.git
 cd pgvector-julia
 createdb pgvector_julia_test
+julia --project=. -e "using Pkg; Pkg.instantiate()"
 julia --project=. LibPQ/example.jl
 ```

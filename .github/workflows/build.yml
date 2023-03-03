@@ -16,4 +16,5 @@ jobs:
           cd pgvector
           make
           sudo make install
+      - run: julia --project=. -e "using Pkg; Pkg.instantiate()"
       - run: julia --project=. LibPQ/example.jl
