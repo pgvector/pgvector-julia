@@ -1,6 +1,6 @@
 using LibPQ, Tables
 
-conn = LibPQ.Connection("dbname=pgvector_julia_test")
+conn = LibPQ.Connection("dbname=pgvector_julia_test host=localhost")
 
 execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
 execute(conn, "DROP TABLE IF EXISTS items")
