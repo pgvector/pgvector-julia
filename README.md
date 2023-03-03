@@ -10,7 +10,7 @@ Supports [LibPQ.jl](https://github.com/iamed2/LibPQ.jl)
 
 Follow the instructions for your database library:
 
-- [LibPQ.jl](#libpq-jl)
+- [LibPQ.jl](#libpqjl)
 
 ## LibPQ.jl
 
