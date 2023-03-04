@@ -6,13 +6,19 @@ execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
 execute(conn, "DROP TABLE IF EXISTS items")
 execute(conn, "CREATE TABLE items (embedding vector(3))")
 
+module Pgvector
+    convert(v::AbstractVector{T}) where T<:Real = string("[", join(v, ","), "]")
+end
+
+embeddings = [1 1 1; 2 2 2; 1 1 2]
 LibPQ.load!(
-    (embedding = ["[1,1,1]", "[2,2,2]", "[1,1,2]"],),
+    (embedding = map(Pgvector.convert, eachrow(embeddings)),),
     conn,
     "INSERT INTO items (embedding) VALUES (\$1)",
 )
 
-result = execute(conn, "SELECT * FROM items ORDER BY embedding <-> \$1 LIMIT 5", ["[1,1,1]"])
+embedding = Pgvector.convert([1, 1, 1])
+result = execute(conn, "SELECT * FROM items ORDER BY embedding <-> \$1 LIMIT 5", [embedding])
 data = columntable(result)
 println(data)
 

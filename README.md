@@ -23,8 +23,13 @@ execute(conn, "CREATE TABLE items (embedding vector(3))")
 Insert vectors
 
 ```julia
+module Pgvector
+    convert(v::AbstractVector{T}) where T<:Real = string("[", join(v, ","), "]")
+end
+
+embeddings = [1 1 1; 2 2 2; 1 1 2]
 LibPQ.load!(
-    (embedding = ["[1,1,1]", "[2,2,2]", "[1,1,2]"],),
+    (embedding = map(Pgvector.convert, eachrow(embeddings)),),
     conn,
     "INSERT INTO items (embedding) VALUES (\$1)",
 )
@@ -33,7 +38,8 @@ LibPQ.load!(
 Get the nearest neighbors
 
 ```julia
-result = execute(conn, "SELECT * FROM items ORDER BY embedding <-> \$1 LIMIT 5", ["[1,1,1]"])
+embedding = Pgvector.convert([1, 1, 1])
+result = execute(conn, "SELECT * FROM items ORDER BY embedding <-> \$1 LIMIT 5", [embedding])
 columntable(result)
 ```
 
