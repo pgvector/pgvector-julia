@@ -4,7 +4,7 @@ conn = LibPQ.Connection("dbname=pgvector_julia_test host=localhost")
 
 execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
 execute(conn, "DROP TABLE IF EXISTS items")
-execute(conn, "CREATE TABLE items (embedding vector(3))")
+execute(conn, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))")
 
 module Pgvector
     convert(v::AbstractVector{T}) where T<:Real = string("[", join(v, ","), "]")
@@ -24,6 +24,6 @@ result = execute(conn, "SELECT * FROM items ORDER BY embedding <-> \$1 LIMIT 5",
 data = columntable(result)
 println(map(Pgvector.parse, data.embedding))
 
-execute(conn, "CREATE INDEX my_index ON items USING ivfflat (embedding vector_l2_ops)")
+execute(conn, "CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)")
 
 close(conn)

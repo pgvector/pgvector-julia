@@ -23,7 +23,7 @@ execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
 Create a table
 
 ```julia
-execute(conn, "CREATE TABLE items (embedding vector(3))")
+execute(conn, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))")
 ```
 
 Insert vectors
