@@ -14,6 +14,12 @@ Follow the instructions for your database library:
 
 ## LibPQ.jl
 
+Enable the extension
+
+```julia
+execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
+```
+
 Create a table
 
 ```julia
