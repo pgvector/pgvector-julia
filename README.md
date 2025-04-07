@@ -17,6 +17,7 @@ Or check out an example:
 - [Embeddings](examples/openai/example.jl) with OpenAI
 - [Embeddings](examples/cohere/example.jl) with Cohere
 - [Hybrid search](examples/hybrid/example.jl) with Ollama (Reciprocal Rank Fusion)
+- [Sparse search](examples/sparse/example.jl) with Text Embeddings Inference
 
 ## LibPQ.jl
 
