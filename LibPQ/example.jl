@@ -7,14 +7,14 @@ execute(conn, "DROP TABLE IF EXISTS items")
 execute(conn, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))")
 
 module Pgvector
-    convert(v::AbstractVector{T}) where T<:Real = string("[", join(v, ","), "]")
+    convert(vec::AbstractVector{T}) where T<:Number = string("[", join(vec, ","), "]")
 
-    parse(v::String) = map(x -> Base.parse(Float32, x), split(v[2:end-1], ","))
+    parse(str::String) = map(x -> Base.parse(Float32, x), split(str[2:end-1], ","))
 end
 
-embeddings = [1 1 1; 2 2 2; 1 1 2]
+embeddings = [[1, 1, 1], [2, 2, 2], [1, 1, 2]]
 LibPQ.load!(
-    (embedding = map(Pgvector.convert, eachrow(embeddings)),),
+    (embedding = map(Pgvector.convert, embeddings),),
     conn,
     "INSERT INTO items (embedding) VALUES (\$1)",
 )

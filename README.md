@@ -37,12 +37,12 @@ Insert vectors
 
 ```julia
 module Pgvector
-    convert(v::AbstractVector{T}) where T<:Real = string("[", join(v, ","), "]")
+    convert(vec::AbstractVector{T}) where T<:Number = string("[", join(vec, ","), "]")
 end
 
-embeddings = [1 1 1; 2 2 2; 1 1 2]
+embeddings = [[1, 1, 1], [2, 2, 2], [1, 1, 2]]
 LibPQ.load!(
-    (embedding = map(Pgvector.convert, eachrow(embeddings)),),
+    (embedding = map(Pgvector.convert, embeddings),),
     conn,
     "INSERT INTO items (embedding) VALUES (\$1)",
 )
