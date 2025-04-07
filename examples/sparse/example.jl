@@ -41,7 +41,7 @@ LibPQ.load!(
 
 query = "forest"
 embedding = embed([query])[1]
-result = execute(conn, "SELECT id FROM documents ORDER BY embedding <#> \$1 LIMIT 5", [Pgvector.convert(embedding)])
+result = execute(conn, "SELECT content FROM documents ORDER BY embedding <#> \$1 LIMIT 5", [Pgvector.convert(embedding)])
 rows = Tables.rows(columntable(result))
 for row in rows
     println(Tables.getcolumn(row, 1))
