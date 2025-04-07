@@ -12,6 +12,10 @@ Follow the instructions for your database library:
 
 - [LibPQ.jl](#libpqjl)
 
+Or check out an example:
+
+- [Embeddings](examples/openai/example.jl) with OpenAI
+
 ## LibPQ.jl
 
 Enable the extension
@@ -78,4 +82,13 @@ cd pgvector-julia
 createdb pgvector_julia_test
 julia --project=. -e "using Pkg; Pkg.instantiate()"
 julia --project=. LibPQ/example.jl
+```
+
+To run an example:
+
+```sh
+cd examples/openai
+createdb pgvector_example
+julia --project=. -e "using Pkg; Pkg.instantiate()"
+julia --project=. example.jl
 ```
