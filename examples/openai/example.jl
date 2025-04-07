@@ -31,7 +31,7 @@ input = [
 ]
 embeddings = embed(input)
 LibPQ.load!(
-    (content = input, embedding = map(Pgvector.convert, embeddings),),
+    (content = input, embedding = map(Pgvector.convert, embeddings)),
     conn,
     "INSERT INTO documents (content, embedding) VALUES (\$1, \$2)",
 )
