@@ -12,7 +12,7 @@ Follow the instructions for your database library:
 
 - [LibPQ.jl](#libpqjl)
 
-Or check out an example:
+Or check out some examples:
 
 - [Embeddings](examples/openai/example.jl) with OpenAI
 - [Binary embeddings](examples/cohere/example.jl) with Cohere
