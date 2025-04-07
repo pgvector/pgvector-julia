@@ -15,6 +15,7 @@ Follow the instructions for your database library:
 Or check out an example:
 
 - [Embeddings](examples/openai/example.jl) with OpenAI
+- [Hybrid search](examples/hybrid/example.jl) with Ollama (Reciprocal Rank Fusion)
 
 ## LibPQ.jl
 
