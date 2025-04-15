@@ -4,13 +4,13 @@ conn = LibPQ.Connection("dbname=pgvector_example host=localhost")
 
 execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
 execute(conn, "DROP TABLE IF EXISTS documents")
-execute(conn, "CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding bit(1024))")
+execute(conn, "CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding bit(1536))")
 
 function embed(texts, type)
-    url = "https://api.cohere.com/v1/embed"
+    url = "https://api.cohere.com/v2/embed"
     data = Dict(
         "texts" => texts,
-        "model" => "embed-english-v3.0",
+        "model" => "embed-v4.0",
         "input_type" => type,
         "embedding_types" => ["ubinary"]
     )
