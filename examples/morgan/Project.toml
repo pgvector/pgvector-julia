@@ -1,0 +1,4 @@
+[deps]
+LibPQ = "194296ae-ab2e-5f79-8cd4-7183a0a5a0d1"
+MolecularGraph = "6c89ec66-9cd8-5372-9f91-fabc50dd27fd"
+Tables = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
