@@ -1,4 +1,4 @@
-using MolecularGraph, LibPQ, Tables
+using LibPQ, MolecularGraph, Tables
 
 conn = LibPQ.Connection("dbname=pgvector_example host=localhost")
 
