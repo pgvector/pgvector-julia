@@ -6,12 +6,12 @@ execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
 execute(conn, "DROP TABLE IF EXISTS molecules")
 execute(conn, "CREATE TABLE molecules (id text PRIMARY KEY, fingerprint bit(2048))")
 
-function generate_fingerprint(molecule)
+function getfingerprint(molecule)
     join(map(b -> b ? "1" : "0", morgan_fp_vector(smilestomol(molecule))))
 end
 
 molecules = ["Cc1ccccc1", "Cc1ncccc1", "c1ccccn1"]
-fingerprints = map(mol -> generate_fingerprint(mol), molecules)
+fingerprints = map(mol -> getfingerprint(mol), molecules)
 LibPQ.load!(
     (id = molecules, fingerprint = fingerprints),
     conn,
@@ -19,7 +19,7 @@ LibPQ.load!(
 )
 
 query = "c1ccco1"
-fingerprint = generate_fingerprint(query)
+fingerprint = getfingerprint(query)
 result = execute(conn, "SELECT id, fingerprint <%> \$1 AS distance FROM molecules ORDER BY distance LIMIT 5", [fingerprint])
 rows = Tables.rows(columntable(result))
 for row in rows
