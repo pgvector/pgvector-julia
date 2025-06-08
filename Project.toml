@@ -5,6 +5,9 @@ version = "0.1.0"
 
 [compat]
 julia = "1.10"
+LibPQ = "1"
+SparseArrays = "1"
+Tables = "1"
 
 [deps]
 LibPQ = "194296ae-ab2e-5f79-8cd4-7183a0a5a0d1"
