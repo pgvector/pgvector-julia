@@ -1,14 +1,10 @@
-using HTTP, JSON, LibPQ, Tables
+using HTTP, JSON, LibPQ, Pgvector, Tables
 
 conn = LibPQ.Connection("dbname=pgvector_example host=localhost")
 
 execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
 execute(conn, "DROP TABLE IF EXISTS documents")
 execute(conn, "CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding vector(1536))")
-
-module Pgvector
-    convert(v::AbstractVector{T}) where T<:Real = string("[", join(v, ","), "]")
-end
 
 function embed(input)
     url = "https://api.openai.com/v1/embeddings"
@@ -31,14 +27,14 @@ input = [
 ]
 embeddings = embed(input)
 LibPQ.load!(
-    (content = input, embedding = map(Pgvector.convert, embeddings)),
+    (content = input, embedding = map(Pgvector.Vector, embeddings)),
     conn,
     "INSERT INTO documents (content, embedding) VALUES (\$1, \$2)",
 )
 
 query = "forest"
 embedding = embed([query])[1]
-result = execute(conn, "SELECT content FROM documents ORDER BY embedding <=> \$1 LIMIT 5", [Pgvector.convert(embedding)])
+result = execute(conn, "SELECT content FROM documents ORDER BY embedding <=> \$1 LIMIT 5", [Pgvector.Vector(embedding)])
 rows = Tables.rows(columntable(result))
 for row in rows
     println(Tables.getcolumn(row, 1))

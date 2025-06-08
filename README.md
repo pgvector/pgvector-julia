@@ -1,6 +1,6 @@
 # pgvector-julia
 
-[pgvector](https://github.com/pgvector/pgvector) examples for Julia
+[pgvector](https://github.com/pgvector/pgvector) support for Julia
 
 Supports [LibPQ.jl](https://github.com/iamed2/LibPQ.jl)
 
@@ -85,7 +85,7 @@ git clone https://github.com/pgvector/pgvector-julia.git
 cd pgvector-julia
 createdb pgvector_julia_test
 julia --project=. -e "using Pkg; Pkg.instantiate()"
-julia --project=. LibPQ/example.jl
+julia --project=. -e "using Pkg; Pkg.test()"
 ```
 
 To run an example:

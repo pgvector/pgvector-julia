@@ -1,19 +1,10 @@
-using HTTP, JSON, LibPQ, SparseArrays, Tables
+using HTTP, JSON, LibPQ, Pgvector, SparseArrays, Tables
 
 conn = LibPQ.Connection("dbname=pgvector_example host=localhost")
 
 execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
 execute(conn, "DROP TABLE IF EXISTS documents")
 execute(conn, "CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding sparsevec(30522))")
-
-module Pgvector
-    using SparseArrays
-
-    function convert(vec::AbstractSparseVector{Tv,Ti}) where {Tv<:Real,Ti<:Integer}
-        elements = [string(i, ":", v) for (i, v) in zip(vec.nzind, vec.nzval)]
-        string("{", join(elements, ","), "}/", vec.n)
-    end
-end
 
 function embed(inputs)
     url = "http://localhost:3000/embed_sparse"
@@ -34,14 +25,14 @@ input = [
 ]
 embeddings = embed(input)
 LibPQ.load!(
-    (content = input, embedding = map(Pgvector.convert, embeddings)),
+    (content = input, embedding = map(Pgvector.SparseVector, embeddings)),
     conn,
     "INSERT INTO documents (content, embedding) VALUES (\$1, \$2)",
 )
 
 query = "forest"
 embedding = embed([query])[1]
-result = execute(conn, "SELECT content FROM documents ORDER BY embedding <#> \$1 LIMIT 5", [Pgvector.convert(embedding)])
+result = execute(conn, "SELECT content FROM documents ORDER BY embedding <#> \$1 LIMIT 5", [Pgvector.SparseVector(embedding)])
 rows = Tables.rows(columntable(result))
 for row in rows
     println(Tables.getcolumn(row, 1))

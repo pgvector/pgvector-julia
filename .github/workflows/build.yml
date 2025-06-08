@@ -16,4 +16,5 @@ jobs:
           make
           sudo make install
       - run: julia --project=. -e "using Pkg; Pkg.instantiate()"
+      - run: julia --project=. -e "using Pkg; Pkg.test()"
       - run: julia --project=. LibPQ/example.jl

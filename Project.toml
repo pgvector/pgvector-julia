@@ -1,3 +1,18 @@
+name = "Pgvector"
+uuid = "ab7f0314-681e-439b-b2a8-1689834ece97"
+authors = ["Andrew Kane <andrew@ankane.org>"]
+version = "0.1.0"
+
+[compat]
+julia = "1.10"
+
 [deps]
 LibPQ = "194296ae-ab2e-5f79-8cd4-7183a0a5a0d1"
+SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 Tables = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

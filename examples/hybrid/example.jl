@@ -1,4 +1,4 @@
-using HTTP, JSON, LibPQ, Tables
+using HTTP, JSON, LibPQ, Pgvector, Tables
 
 conn = LibPQ.Connection("dbname=pgvector_example host=localhost")
 
@@ -6,10 +6,6 @@ execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
 execute(conn, "DROP TABLE IF EXISTS documents")
 execute(conn, "CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding vector(768))")
 execute(conn, "CREATE INDEX ON documents USING GIN (to_tsvector('english', content))")
-
-module Pgvector
-    convert(v::AbstractVector{T}) where T<:Real = string("[", join(v, ","), "]")
-end
 
 function embed(input, task)
     # nomic-embed-text uses a task prefix
@@ -35,7 +31,7 @@ input = [
 ]
 embeddings = embed(input, "search_document")
 LibPQ.load!(
-    (content = input, embedding = map(Pgvector.convert, embeddings)),
+    (content = input, embedding = map(Pgvector.Vector, embeddings)),
     conn,
     "INSERT INTO documents (content, embedding) VALUES (\$1, \$2)",
 )
@@ -66,7 +62,7 @@ LIMIT 5
 query = "growling bear"
 embedding = embed([query], "search_query")[1]
 k = 60
-result = execute(conn, sql, [query, Pgvector.convert(embedding), k])
+result = execute(conn, sql, [query, Pgvector.Vector(embedding), k])
 rows = Tables.rows(columntable(result))
 for row in rows
     id = Tables.getcolumn(row, 1)
