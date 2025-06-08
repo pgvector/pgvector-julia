@@ -22,10 +22,28 @@ Or check out some examples:
 
 ## LibPQ.jl
 
+Add the package
+
+```text
+pkg> add https://github.com/pgvector/Pgvector.jl.git
+```
+
+Load the package
+
+```julia
+using Pgvector
+```
+
 Enable the extension
 
 ```julia
 execute(conn, "CREATE EXTENSION IF NOT EXISTS vector")
+```
+
+Register the types with your connection
+
+```julia
+Pgvector.register!(conn)
 ```
 
 Create a table
@@ -37,13 +55,9 @@ execute(conn, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3)
 Insert vectors
 
 ```julia
-module Pgvector
-    convert(vec::AbstractVector{T}) where T<:Number = string("[", join(vec, ","), "]")
-end
-
 embeddings = [[1, 1, 1], [2, 2, 2], [1, 1, 2]]
 LibPQ.load!(
-    (embedding = map(Pgvector.convert, embeddings),),
+    (embedding = map(Pgvector.Vector, embeddings),),
     conn,
     "INSERT INTO items (embedding) VALUES (\$1)",
 )
@@ -52,7 +66,7 @@ LibPQ.load!(
 Get the nearest neighbors
 
 ```julia
-embedding = Pgvector.convert([1, 1, 1])
+embedding = Pgvector.Vector([1, 1, 1])
 result = execute(conn, "SELECT * FROM items ORDER BY embedding <-> \$1 LIMIT 5", [embedding])
 columntable(result)
 ```

@@ -15,8 +15,8 @@ LibPQ.load!(
     "INSERT INTO items (embedding) VALUES (\$1)",
 )
 
-embedding = [1, 1, 1]
-result = execute(conn, "SELECT * FROM items ORDER BY embedding <-> \$1 LIMIT 5", [Pgvector.Vector(embedding)])
+embedding = Pgvector.Vector([1, 1, 1])
+result = execute(conn, "SELECT * FROM items ORDER BY embedding <-> \$1 LIMIT 5", [embedding])
 data = columntable(result)
 println(data)
 
