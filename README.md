@@ -25,7 +25,7 @@ Or check out some examples:
 Add the package
 
 ```text
-pkg> add https://github.com/pgvector/Pgvector.jl.git
+pkg> add Pgvector
 ```
 
 Load the package
