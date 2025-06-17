@@ -1,10 +1,10 @@
-# pgvector-julia
+# Pgvector.jl
 
 [pgvector](https://github.com/pgvector/pgvector) support for Julia
 
 Supports [LibPQ.jl](https://github.com/iamed2/LibPQ.jl)
 
-[![Build Status](https://github.com/pgvector/pgvector-julia/actions/workflows/build.yml/badge.svg)](https://github.com/pgvector/pgvector-julia/actions)
+[![Build Status](https://github.com/pgvector/Pgvector.jl/actions/workflows/build.yml/badge.svg)](https://github.com/pgvector/Pgvector.jl/actions)
 
 ## Getting Started
 
@@ -85,22 +85,22 @@ See a [full example](LibPQ/example.jl)
 
 ## History
 
-View the [changelog](https://github.com/pgvector/pgvector-julia/blob/master/CHANGELOG.md)
+View the [changelog](https://github.com/pgvector/Pgvector.jl/blob/master/CHANGELOG.md)
 
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
 
-- [Report bugs](https://github.com/pgvector/pgvector-julia/issues)
-- Fix bugs and [submit pull requests](https://github.com/pgvector/pgvector-julia/pulls)
+- [Report bugs](https://github.com/pgvector/Pgvector.jl/issues)
+- Fix bugs and [submit pull requests](https://github.com/pgvector/Pgvector.jl/pulls)
 - Write, clarify, or fix documentation
 - Suggest or add new features
 
 To get started with development:
 
 ```sh
-git clone https://github.com/pgvector/pgvector-julia.git
-cd pgvector-julia
+git clone https://github.com/pgvector/Pgvector.jl.git
+cd Pgvector.jl
 createdb pgvector_julia_test
 julia --project=. -e "using Pkg; Pkg.instantiate()"
 julia --project=. -e "using Pkg; Pkg.test()"
