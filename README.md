@@ -83,6 +83,10 @@ Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distanc
 
 See a [full example](LibPQ/example.jl)
 
+## History
+
+View the [changelog](https://github.com/pgvector/pgvector-julia/blob/master/CHANGELOG.md)
+
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
