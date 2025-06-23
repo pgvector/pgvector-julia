@@ -1,4 +1,4 @@
-using LibPQ, MolecularGraph, Tables
+using LibPQ, RDKitMinimalLib, Tables
 
 conn = LibPQ.Connection("dbname=pgvector_example host=localhost")
 
@@ -7,7 +7,7 @@ execute(conn, "DROP TABLE IF EXISTS molecules")
 execute(conn, "CREATE TABLE molecules (id text PRIMARY KEY, fingerprint bit(2048))")
 
 function getfingerprint(molecule)
-    join(map(b -> b ? "1" : "0", morgan_fp_vector(smilestomol(molecule))))
+    get_morgan_fp(get_mol(molecule))
 end
 
 molecules = ["Cc1ccccc1", "Cc1ncccc1", "c1ccccn1"]
