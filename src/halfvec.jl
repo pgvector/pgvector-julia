@@ -10,9 +10,11 @@ function Base.parse(::Type{HalfVector}, pqv::LibPQ.PQBinaryValue{OID}) where {OI
     dim = ntoh(unsafe_load(Ptr{Int16}(ptr)))
     ptr += sizeof(Int16)
 
-    # TODO check unused
     unused = ntoh(unsafe_load(Ptr{Int16}(ptr)))
     ptr += sizeof(Int16)
+    if unused != 0
+        error("expected unused to be 0")
+    end
 
     vec = []
     for i = 1:dim

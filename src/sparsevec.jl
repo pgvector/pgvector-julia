@@ -13,9 +13,11 @@ function Base.parse(::Type{SparseVector}, pqv::LibPQ.PQBinaryValue{OID}) where {
     nnz = ntoh(unsafe_load(Ptr{Int32}(ptr)))
     ptr += sizeof(Int32)
 
-    # TODO check unused
     unused = ntoh(unsafe_load(Ptr{Int32}(ptr)))
     ptr += sizeof(Int32)
+    if unused != 0
+        error("expected unused to be 0")
+    end
 
     indices = []
     for i = 1:nnz
