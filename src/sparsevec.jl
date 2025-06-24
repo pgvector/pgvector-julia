@@ -36,8 +36,7 @@ function Base.parse(::Type{SparseVector}, pqv::LibPQ.PQBinaryValue{OID}) where {
     SparseVector(sparsevec(indices, values, dim))
 end
 
-function Base.parse(::Type{SparseVector}, pqv::LibPQ.PQTextValue{OID}) where {OID}
-    s = unsafe_string(pqv)
+function Base.parse(::Type{SparseVector}, s::String)
     elements, dim = rsplit(s, "/"; limit=2)
     elements = map(e -> split(e, ":"; limit=2), split(elements[2:end-1], ","))
     indices = map(v -> Base.parse(Int32, v[1]), elements)

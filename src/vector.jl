@@ -26,8 +26,7 @@ function Base.parse(::Type{Vector}, pqv::LibPQ.PQBinaryValue{OID}) where {OID}
     Vector(vec)
 end
 
-function Base.parse(::Type{Vector}, pqv::LibPQ.PQTextValue{OID}) where {OID}
-    s = unsafe_string(pqv)
+function Base.parse(::Type{Vector}, s::String)
     Vector(map(x -> Base.parse(Float32, x), split(s[2:end-1], ",")))
 end
 

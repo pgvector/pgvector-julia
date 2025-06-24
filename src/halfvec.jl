@@ -26,8 +26,7 @@ function Base.parse(::Type{HalfVector}, pqv::LibPQ.PQBinaryValue{OID}) where {OI
     HalfVector(vec)
 end
 
-function Base.parse(::Type{HalfVector}, pqv::LibPQ.PQTextValue{OID}) where {OID}
-    s = unsafe_string(pqv)
+function Base.parse(::Type{HalfVector}, s::String)
     HalfVector(map(x -> Base.parse(Float16, x), split(s[2:end-1], ",")))
 end
 
