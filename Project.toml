@@ -1,7 +1,7 @@
 name = "Pgvector"
 uuid = "ab7f0314-681e-439b-b2a8-1689834ece97"
 authors = ["Andrew Kane <andrew@ankane.org>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [compat]
 julia = "1.10"
