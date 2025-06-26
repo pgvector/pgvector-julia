@@ -1,0 +1,6 @@
+[deps]
+LibPQ = "194296ae-ab2e-5f79-8cd4-7183a0a5a0d1"
+Pgvector = "ab7f0314-681e-439b-b2a8-1689834ece97"
+
+[sources]
+Pgvector = {path = "../.."}

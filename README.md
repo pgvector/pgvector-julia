@@ -19,6 +19,7 @@ Or check out some examples:
 - [Hybrid search](examples/hybrid/example.jl) with Ollama (Reciprocal Rank Fusion)
 - [Sparse search](examples/sparse/example.jl) with Text Embeddings Inference
 - [Morgan fingerprints](examples/morgan/example.jl) with RDKitMinimalLib.jl
+- [Bulk loading](examples/loading/example.jl) with `COPY`
 
 ## LibPQ.jl
 
