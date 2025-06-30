@@ -122,7 +122,7 @@ Create a sparse vector
 vec = Pgvector.SparseVector(sparsevec([1, 0, 2, 0, 3, 0]))
 ```
 
-Get a `sparsevec`
+Get a `SparseVector{Float32,Int32}`
 
 ```julia
 vec.vec
