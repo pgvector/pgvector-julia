@@ -84,6 +84,50 @@ Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distanc
 
 See a [full example](LibPQ/example.jl)
 
+## Reference
+
+### Vectors
+
+Create a vector
+
+```julia
+vec = Pgvector.Vector([1, 2, 3])
+```
+
+Get a `Vector{Float32}`
+
+```julia
+vec.vec
+```
+
+### Half Vectors
+
+Create a half vector
+
+```julia
+vec = Pgvector.HalfVector([1, 2, 3])
+```
+
+Get a `Vector{Float16}`
+
+```julia
+vec.vec
+```
+
+### Sparse Vectors
+
+Create a sparse vector
+
+```julia
+vec = Pgvector.SparseVector(sparsevec([1, 0, 2, 0, 3, 0]))
+```
+
+Get a `sparsevec`
+
+```julia
+vec.vec
+```
+
 ## History
 
 View the [changelog](https://github.com/pgvector/Pgvector.jl/blob/master/CHANGELOG.md)
