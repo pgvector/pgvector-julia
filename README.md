@@ -154,7 +154,7 @@ julia --project=. -e "using Pkg; Pkg.test()"
 To run an example:
 
 ```sh
-cd examples/openai
+cd examples/loading
 createdb pgvector_example
 julia --project=. -e "using Pkg; Pkg.instantiate()"
 julia --project=. example.jl
